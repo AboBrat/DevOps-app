@@ -9,7 +9,7 @@ pipeline {
                         branch: "main",
                         url: "https://github.com/AboBrat/DevOps-app.git"
                     }
-`                }
+                }
             }
         }
     }
