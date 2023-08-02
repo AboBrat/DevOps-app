@@ -3,11 +3,14 @@ pipeline {
     
     stages {
         stage('Checkout') {
-            script {
-                git branch: 'main', url: 'https://github.com/AboBrat/DevOps-app.git'
+            steps{
+                script {
+                    gitCheckout{
+                        branch: "main",
+                        url: "https://github.com/AboBrat/DevOps-app.git"
+                    }
+`                }
             }
         }
-        
-        // Add more stages here for your build and deployment steps
     }
 }
