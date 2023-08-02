@@ -12,7 +12,14 @@ pipeline {
                 url: "https://github.com/AboBrat/DevOps-app.git"
             )
             }
+        stage('Unit Test maven')
+            steps{
+            script{
+                mvnTest()
+                }
+            }
         }
     }
 }
+
 
