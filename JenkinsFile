@@ -6,7 +6,15 @@ pipeline {
     jdk 'Java'
     maven 'mvn'
 }
+parameters{
+
+    choice(name: 'action', choices: 'create\ndelete', description: 'Choose create/delete')
+}
+
     stages {
+
+        when { expression { param.action == 'create'}}
+
         stage('Checkout'){
             steps{
             gitCheckout(
@@ -15,14 +23,18 @@ pipeline {
             )
             }
         }
+
         stage('Unit Test maven'){
+        when { expression { param.action == 'create'}}
             steps{
             script{
                 mvnTest()
                 }
             }
         }
+
         stage('Integraton Test maven'){
+        when { expression { param.action == 'create'}}
             steps{
             script{
                 mvnIntegrationTest()
