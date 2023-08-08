@@ -4,22 +4,22 @@ pipeline {
     agent any
     
     stages {
-        stage('Checkout') {
-
+        stage('Checkout'){
             steps{
             gitCheckout(
                 branch: "main",
                 url: "https://github.com/AboBrat/DevOps-app.git"
             )
             }
+        }
         stage('Unit Test maven')
             steps{
             script{
                 mvnTest()
-                }
             }
         }
     }
 }
+
 
 
