@@ -2,10 +2,7 @@
 
 pipeline {
     agent any
-    tools {
-    jdk 'Java'
-    maven 'mvn'
-}
+    
 parameters{
 
     choice(name: 'action', choices: 'create\ndelete', description: 'Choose create/delete')
