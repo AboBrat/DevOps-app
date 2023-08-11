@@ -6,14 +6,20 @@ pipeline {
     jdk 'Java'
     maven 'mvn'
 }
-//parameters{
+parameters{
 
-    //choice(name: 'action', choices: 'create\ndelete', description: 'Choose create/delete')
-//}
+    choice(name: 'action', choices: 'create\ndelete', description: 'Choose create/delete')
+    string(name: 'ImageName',description: 'Name of the docker build', defaultvalue: 'javapp')
+    string(name: 'ImageTag',description: 'Tag of the docker build', defaultvalue: 'v1')
+    string(name: 'AppName',description: 'Name of the application', defaultvalue: 'springboot')
+
+
+}
+
 
     stages {
 
-        //when { expression { param.action == 'create'} }
+        when { expression { param.action == 'create'} }
 
         stage('Checkout'){
             steps{
@@ -25,7 +31,7 @@ pipeline {
         }
 
         stage('Unit Test maven'){
-        //when { expression { param.action == 'create'}}
+        when { expression { param.action == 'create'}}
             steps{
             script{
                 mvnTest()
@@ -34,7 +40,7 @@ pipeline {
         }
 
         stage('Integraton Test maven'){
-        //when { expression { param.action == 'create'}}
+        when { expression { param.action == 'create'}}
             steps{
             script{
                 mvnIntegrationTest()
@@ -42,10 +48,18 @@ pipeline {
             }
         }
         stage('Maven build'){
-       // when { expression { param.action == 'create'}}
+        when { expression { param.action == 'create'}}
             steps{
             script{
                 mvnBuild()
+                }
+            }
+        }
+        stage('Docker Image Build'){
+        when { expression { param.action == 'create'}}
+            steps{
+            script{
+                DockerBuild("${param.ImageName}","${param.ImageTag}","${param.AppName}")
                 }
             }
         }
