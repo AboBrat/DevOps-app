@@ -68,7 +68,7 @@ parameters{
                 }
             }
         }
-        stage('Docker Image Push'){
+        stage('Docker Image Push : DockerHUb'){
         when { expression { params.action == 'create'}}
             steps{
             script{
